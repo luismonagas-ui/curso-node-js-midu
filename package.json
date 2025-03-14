@@ -1,0 +1,33 @@
+{
+  "name": "curso-node-js-midu",
+  "version": "1.0.0",
+  "description": "Curso de node con midu",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luismonagas-ui/curso-node-js-midu.git"
+  },
+  "keywords": [
+    "curso",
+    "node",
+    "midudev"
+  ],
+  "author": "Miguel Àngel Duràn Garcìa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luismonagas-ui/curso-node-js-midu/issues"
+  },
+  "homepage": "https://github.com/luismonagas-ui/curso-node-js-midu#readme",
+  "dependencies": {
+    "picocolors": "1.1.1"
+  },
+  "devDependencies": {
+    "standard": "17.1.2"
+  },
+  "eslintConfig": {
+    "extends": "standard"
+  }
+}
