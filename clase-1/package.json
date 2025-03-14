@@ -22,6 +22,6 @@
   },
   "homepage": "https://github.com/luismonagas-ui/curso-node-js-midu#readme",
   "dependencies": {
-    "picocolors": "^1.1.1"
+    "picocolors": "1.1.1"
   }
 }
