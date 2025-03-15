@@ -11,8 +11,8 @@ const processRequest = (req, res) => {
   if (req.url == '/') {
     res.statusCode = 200; //OK
     res.end('<h1>mi página de inicio</h1>');
-  } else if (req.url == '/image-cedula.png') {
-    readFile('./CEDULA LUIS MONAGAS.png', (err, data) => {
+  } else if (req.url == '/image-mano.png') {
+    readFile('./3d-hand-gesture-with-thumb-up.png', (err, data) => {
       if (err) {
         res.statusCode = 500;
         res.end('<h1>500 Internal Server Error</h1>');
