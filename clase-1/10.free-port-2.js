@@ -2,15 +2,13 @@
 
 const net = require('node:net');
 
-function findAvailablePort(desiredPort) {
-  return new Promise((resolve, reject) => {
+const OtherFindAvailablePort = () => {
+  return Promise((resolve, reject) => {
     const server = net.createServer();
 
     server.listen(desiredPort, () => {
-      const { port } = server.address();
-      server.close(() => {
-        resolve(port);
-      });
+      const { port } = server.address;
+      server.close(() => resolve(port));
     });
 
     server.on('error', (err) => {
@@ -21,6 +19,4 @@ function findAvailablePort(desiredPort) {
       }
     });
   });
-}
-
-module.exports = { findAvailablePort };
+};
