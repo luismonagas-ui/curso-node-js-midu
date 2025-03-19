@@ -4,6 +4,8 @@ const express = require('express');
 const crypto = require('node:crypto');
 const path = require('node:path');
 const movies = require('./movies.json');
+const { validateMovie, validatePartialMovie } = require('./schemas.js');
+const { error } = require('node:console');
 
 const PORT = process.env.PORT ?? 1234;
 
@@ -35,24 +37,46 @@ app.get('/movies/:id', (req, res) => {
 });
 
 app.post('/movies', (req, res) => {
-  const { title, genre, year, director, duration, rate, poster } = req.body;
+  const result = validateMovie(req.body);
+
+  if (result.error) {
+    //422 Unprocessable Entity
+    return res.status(422).json({ error: JSON.parse(result.error.message) });
+  }
 
   const newMovie = {
     id: crypto.randomUUID(),
-    title,
-    genre,
-    director,
-    year,
-    duration,
-    rate: rate ?? 0,
-    poster,
+    ...result.data,
   };
   //Esto no seria REST, porque estamo guardando
   //el estado de la aplicaciòn en memoria
 
   movies.push(newMovie);
 
-  res.status(201).json(newMovie);
+  res.status(201).json(newMovie); //actualizar la caché del cliente
+});
+
+app.patch('/movies/:id', (req, res) => {
+  const result = validatePartialMovie(req.body);
+
+  if (!result.success) {
+    return res.status(400).json({ error: JSON.parse(result.error.message) });
+  }
+
+  const { id } = req.params;
+  const movieIndex = movies.findIndex((movie) => movie['id'] == id);
+
+  if (movieIndex == -1)
+    return res.status(404).json({ message: 'Movie not found' });
+
+  const updateMovie = {
+    ...movies[movieIndex],
+    ...result.data,
+  };
+
+  movies[movieIndex] = updateMovie;
+
+  return res.json(updateMovie);
 });
 
 app.listen(PORT, () => {
