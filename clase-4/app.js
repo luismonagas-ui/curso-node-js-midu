@@ -1,16 +1,15 @@
 /** @format */
 
-const express = require('express');
-const crypto = require('node:crypto');
-const cors = require('cors');
-const path = require('node:path');
-const movies = require('./movies.json');
-const { validateMovie, validatePartialMovie } = require('./schemas/movies.js');
-
-const PORT = process.env.PORT ?? 1234;
+import express, { json } from 'express';
+import { randomUUID } from 'node:crypto';
+import cors from 'cors';
+import path from 'node:path';
+import movies from './movies.json' with { type: "json" };
+import { validateMovie, validatePartialMovie } from './schemas/movies.js';
+import { error } from 'node:console';
 
 const app = express();
-app.use(express.json());
+app.use(json());
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -69,7 +68,7 @@ app.post('/movies', (req, res) => {
   }
 
   const newMovie = {
-    id: crypto.randomUUID(),
+    id: randomUUID(),
     ...result.data,
   };
   //Esto no seria REST, porque estamo guardando
@@ -115,6 +114,8 @@ app.patch('/movies/:id', (req, res) => {
 
   return res.json(updateMovie);
 });
+
+const PORT = process.env.PORT ?? 1234;
 
 app.listen(PORT, () => {
   console.log(`server listening on port http://localhost:${PORT}`);
