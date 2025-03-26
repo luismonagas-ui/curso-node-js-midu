@@ -1,5 +1,5 @@
 /** @format */
-import { MovieModel } from '../models/movies-model.js';
+import { MovieModel } from '../models/local-file-system/movie-model.js';
 import { validateMovie, validatePartialMovie } from '../schemas/movies.js';
 
 export class MovieController {

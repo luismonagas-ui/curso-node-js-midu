@@ -1,6 +1,6 @@
 /** @format */
 import { randomUUID } from 'node:crypto';
-import { readJSON } from '../utils/utils.js';
+import { readJSON } from '../../utils/utils.js';
 
 const movies = readJSON('./data/movies.json');
 
